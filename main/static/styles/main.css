@@ -1,0 +1,32 @@
+
+body {
+  font-family: "Roboto Flex";
+  font-weight: 300;
+  font-style: normal;
+}
+
+.searchFormContainer, header, .graph{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchFormContents{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+
+input, select{
+   width: 300px;
+}
+
+[type="checkbox"] {
+    width: 10px;
+}
+
+ul{
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}

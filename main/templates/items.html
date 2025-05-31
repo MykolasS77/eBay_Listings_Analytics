@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% block content %}
+<form method="post" action="/generate-graph" class="inline">
+  <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+  <button type="submit" name="submit_param" value="submit_value" class="link-button">
+    Generate graph
+  </button>
+</form>
+    {% for display_list_item in display_list.general_query_data %}
+    <h1>Region: {{display_list_item.market}}</h1>
+    <h1>Average price: {{display_list_item.average_price}} {{display_list_item.currency}}</h1>
+    <h1>Median price: {{display_list_item.median_price}} {{display_list_item.currency}}</h1>
+    <h1>Min price: {{display_list_item.min_price}} {{display_list_item.currency}}</h1>
+    <h1>Max price: {{display_list_item.max_price}} {{display_list_item.currency}}</h1>
+      {% for item in display_list_item.items %}
+        <a href="{{item.link_to_product}}"><h1>{{item.title}}</h1></a>
+        <h2>{{item.price}} {{display_list_item.currency}}</h2>
+        <h2>Seller: {{item.seller}}, Condition: {{item.condition}}</h2>
+        
+        <form method="delete" action="/delete-item/{{item.id}}" class="inline">
+          <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+          <button type="submit" name="submit_param" value="submit_value" class="link-button">
+            Delete Item
+          </button>
+        </form>
+        <hr>
+      {%endfor%}
+      <hr>
+    {%endfor%}
+   
+      
+
+{% endblock %}

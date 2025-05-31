@@ -1,0 +1,15 @@
+GET https://api.ebay.com/buy/browse/v1/item_summary/search?
+q=string&
+gtin=string&
+charity_ids=string&
+fieldgroups=string&
+compatibility_filter=CompatibilityFilter&
+auto_correct=string&
+category_ids=string&
+filter=FilterField&
+sort=SortField&
+limit=string&
+offset=string&
+aspect_filter=AspectFilter&
+epid=string&
+

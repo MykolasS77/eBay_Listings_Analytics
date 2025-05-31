@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/main.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Ebay Listings Analytics</h1>
+      </div>
+    </header>
+     {%block content%}
+     <div class="searchFormContainer">
+      <form method="POST" action="{{url_for('blueprint_main.main')}}">
+        
+        {{ search_form.csrf_token }}
+        
+        
+          <div>{{ search_form.search_parameter.label }} </div> <div class="searchBar">{{search_form.search_parameter}}</div>
+          <div>{{ search_form.limit.label }}</div>  <div>{{ search_form.limit }}</div>
+          <div>{{ search_form.currency.label }} </div> <div>{{ search_form.currency }}</div>
+          <div>{{ search_form.market.label }} </div> <div>{{ search_form.market }}</div>
+          <div>{{ search_form.sort_by.label }} </div> <div>{{ search_form.sort_by }}</div>
+          <div>{{ search_form.price_filter_min.label }}</div> <div>{{ search_form.price_filter_min }}</div>
+          <div>{{ search_form.price_filter_max.label }}</div> <div>{{ search_form.price_filter_max }}</div>
+          <div>{{ search_form.condition.label }}</div> <div>{{ search_form.condition }}</div>
+          <div>{{ search_form.submit }}</div>
+        
+        
+      </form>
+      </div>
+      {%endblock%}
+  
+    
+  </body>
+</html>
