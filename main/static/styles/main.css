@@ -11,10 +11,25 @@ body {
     align-items: center;
 }
 
+.itemsContainer{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto;
+  text-align: center;
+}
+
+.queryInfo{
+  background-color: rgb(238, 238, 238);
+  border-radius: 15px;
+}
+
+
+
 .searchFormContents{
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
+    
 }
 
 input, select{
@@ -29,4 +44,15 @@ ul{
   list-style-type: none; /* Remove bullets */
   padding: 0; /* Remove padding */
   margin: 0; /* Remove margins */
+}
+
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
