@@ -1,19 +1,11 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for, session
-from .helper_functions import str_to_list_converter_for_conditions_id_list, str_to_list_converter_for_market, convert_market_id_to_country_name, request_parameters_and_headers, gather_data, fetch_and_save_data, format_query_price_information
-from requests.auth import HTTPBasicAuth
-from .forms import SearchForm, MARKET_LIST
+from flask import Flask, Blueprint, render_template, redirect, url_for
+from .helper_functions import fetch_and_save_data, format_query_price_information
+from .forms import SearchForm
 from .database import db, SavedData, GeneralQueryData, SingleItem
-import requests
-import json
-import statistics
-
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
-import asyncio
-import aiohttp
 import os
-import ast
+
 
 app = Flask(__name__)
 blueprint_main = Blueprint('blueprint_main', __name__, template_folder="templates")

@@ -1,12 +1,13 @@
 {% extends 'index.html' %}
 {% block content %}
-<form method="post" action="/generate-graph" class="inline">
-  <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-  <button type="submit" name="submit_param" value="submit_value" class="link-button">
-    Generate graph
-  </button>
-</form>
+
     <div class="itemsContainer">
+      <form method="post" action="/generate-graph" class="inline">
+      <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+      <button type="submit" name="submit_param" value="submit_value" class="link-button">
+      Generate box plot for all items
+      </button>
+      </form>
     {% for display_list_item in display_list.general_query_data %}
     <div class="queryInfo">
     <h1>Region: {{display_list_item.market}}</h1>

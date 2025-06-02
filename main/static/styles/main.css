@@ -5,10 +5,17 @@ body {
   font-style: normal;
 }
 
-.searchFormContainer, header, .graph{
+.searchFormContainer, header{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.graph{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto;
+  align-items: center;
 }
 
 .itemsContainer{
@@ -55,4 +62,7 @@ ul{
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+
+  
+
 }

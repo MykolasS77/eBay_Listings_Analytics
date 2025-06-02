@@ -1,14 +1,9 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for, session
-
 from requests.auth import HTTPBasicAuth
-from .forms import SearchForm, MARKET_LIST
+from .forms import MARKET_LIST
 from .database import db, SavedData, GeneralQueryData, SingleItem
 import requests
 import json
 import statistics
-import matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
 import asyncio
 import aiohttp
 from .env_config import CLIENT_ID, CLIENT_SECRET, GET_TOKEN_LINK, SCOPE, EBAY_BROWSE_API, EXCHANGE_RATE_API_KEY

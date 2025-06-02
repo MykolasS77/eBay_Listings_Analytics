@@ -1,6 +1,5 @@
-from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, SubmitField, SelectField, SelectMultipleField, widgets
+from wtforms import StringField, IntegerField, SubmitField, SelectField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired, Optional, NumberRange
 
 

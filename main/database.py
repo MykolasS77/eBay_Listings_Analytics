@@ -1,7 +1,6 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from typing import List
-from sqlalchemy import Integer, String, ForeignKey
+from sqlalchemy import ForeignKey
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
