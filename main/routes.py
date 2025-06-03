@@ -50,6 +50,7 @@ def generate_graph():
     last_query = data[-1]
     general_query_data = last_query.general_query_data
     search_parameter_name = last_query.search_parameter
+    
     matplot_display_list = []
     market_names = []
     for item in general_query_data:
@@ -61,7 +62,7 @@ def generate_graph():
     plt.boxplot(matplot_display_list, label=search_parameter_name, tick_labels=market_names)
     plt.xticks(rotation=45, fontsize=8)
     plt.subplots_adjust(bottom=0.30)
-    plt.legend([search_parameter_name])
+    plt.legend([search_parameter_name, ])
     plt.savefig(save_path, bbox_inches='tight')
     plt.clf()
 
