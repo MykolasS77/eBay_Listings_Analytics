@@ -29,48 +29,52 @@ def str_to_list_converter_for_market(market_list_string: str):
     if type(market_list_string) == list:
         new_list = [eval(item) for item in market_list_string]
         return new_list
-    else:
-        new_list = eval(market_list_string)
-        return [new_list]
+    # else:
+    #     new_list = eval(market_list_string)
+    #     return [new_list]
 
 def str_to_list_converter_for_conditions_id_list(conditions_id_list: str):
     replacements = str.maketrans({"[": "{", "]": "}", ",": "|", "'": "", " ": ""})
     formated_conditions_id_list = conditions_id_list.translate(replacements)
     return formated_conditions_id_list
 
-def request_parameters_and_headers(search_parameter, limit, sort_by, min_price, max_price, market, conditions_id_list):
+def request_parameters_and_headers(search_parameter, max_delivery_cost, limit, sort_by, min_price, max_price, market, conditions_id_list, delivery_destination):
     token = generate_token()
     
     parameters = {
         "q": search_parameter
     }
 
+    filter_list = []
+
     if limit != None:
         parameters["limit"] = limit
     if sort_by != None:
         parameters["sort"] = sort_by
     if min_price != None and max_price != None:
-        parameters["filter"] = f"price:[{min_price}..{max_price}],priceCurrency:{market[1]}"
+        filter_list.append(f"price:[{min_price}..{max_price}],priceCurrency:{market[1]}")
     if min_price != None and max_price == None:
-        parameters["filter"] = f"price:[{min_price}..],priceCurrency:{market[1]}"
+        filter_list.append(f"price:[{min_price}..],priceCurrency:{market[1]}")
     if max_price != None and min_price == None:
-        parameters["filter"] = f"price:[..{max_price}],priceCurrency:{market[1]}"
-
-    
-    
+        filter_list.append(f"price:[..{max_price}],priceCurrency:{market[1]}")
+    if max_delivery_cost != None:
+        filter_list.append(f"maxDeliveryCost:{max_delivery_cost}")
     if conditions_id_list != "{}":
-        if "filter" in parameters.keys():
-            parameters["filter"] += f",conditionIds:{conditions_id_list}"
-        else:
-            parameters["filter"] = f"conditionIds:{conditions_id_list}"
+        filter_list.append(f"conditionIds:{conditions_id_list}")
+    
+    if len(filter_list) != 0 :
+        comma_sepparated_filter_list = ",".join(filter_list)
+        parameters["filter"] = comma_sepparated_filter_list
 
 
     data = {
         "Authorization": f"Bearer {token}",
         "X-EBAY-C-MARKETPLACE-ID": market[0],
-        # "X-EBAY-C-ENDUSERCTX": sort_by ### dokumentacijoj rekomenduoja nurodyt kur siunti preke, nes paskaiciuoja price + shipping
+        "X-EBAY-C-ENDUSERCTX": f"contextualLocation=country={delivery_destination}"
         }
     
+   
+
     return parameters, data, market[0]
 
 def convert_market_id_to_country_name(market_list: list) -> list:
@@ -102,6 +106,7 @@ async def get_data(url: str, search_parameter:dict, headers_data: dict, session)
         exchange_rates = await session.get(url=exhcnage_api_url)
         exchange_rates_response = await exchange_rates.json()
         print("got exchange rates.")
+        print(exchange_rates_response)
 
         return_dict = {"items": items_response, "exchange_rates": exchange_rates_response}
         
@@ -124,6 +129,13 @@ def format_query_price_information(items_price_list):
 
     return average_price, median_price, min_price, max_price
 
+def get_shipping_price(item):
+    if "shippingOptions" in item:
+        shipping_price = item["shippingOptions"][0]["shippingCost"]["value"]
+        
+        return float(shipping_price)
+    else:
+        return 0
 
 def format_general_query_data(market_names: list, currency: str):
     data = SavedData.query.all()
@@ -160,17 +172,25 @@ def format_general_query_data(market_names: list, currency: str):
             for item in item_summaries:
                 
                 if currency == None:
-                    price = item["price"]["value"]
+                    price = float(item["price"]["value"])
+                    shipping_price = get_shipping_price(item)
+                    total_price = round(price + shipping_price, 2)
                 else:
                     price = convert_to_specified_currency(price=float(item["price"]["value"]), convert_to_currency=currency, exchange_rate_dict=data_item["exchange_rates"])
-
+                    shipping_price = convert_to_specified_currency(price=float(get_shipping_price(item)), convert_to_currency=currency, exchange_rate_dict=data_item["exchange_rates"])
+                    total_price = round(price + shipping_price, 2)
+                
+                
                 single_item = SingleItem(title=item["title"], 
-                                        price=price, 
+                                        price=price,
+                                        shipping_price=shipping_price,
+                                        total_price=total_price,
                                         seller=item["seller"]["username"], 
                                         condition=item["condition"], 
                                         link_to_product=item["itemWebUrl"],
                                         parent_id=added_item[-1].id,
                                         market = market_names[index],
+                                        
                                         )
                 items_list.append(single_item)
             db.session.add_all(items_list)
@@ -178,7 +198,8 @@ def format_general_query_data(market_names: list, currency: str):
     
 
 
-def fetch_and_save_data(market: list, search_parameter: str, limit: int, sort_by: str, min_price: int, max_price: int, conditions_id_list: list, currency: str):
+def fetch_and_save_data(market: list, free_shipping: int, delivery_destination: str, search_parameter: str, limit: int, sort_by: str, min_price: int, max_price: int, conditions_id_list: list, currency: str):
+    
     parameters_and_headers_list = []
     market_list = str_to_list_converter_for_market(market)
     formated_conditions_id_list = str_to_list_converter_for_conditions_id_list(str(conditions_id_list))
@@ -187,16 +208,21 @@ def fetch_and_save_data(market: list, search_parameter: str, limit: int, sort_by
     for market in market_list:
         
         parameters_and_headers = request_parameters_and_headers(search_parameter=search_parameter, 
-                                                                limit=limit, market=market, 
-                                                                sort_by=sort_by, min_price=min_price, 
+                                                                limit=limit, 
+                                                                market=market, 
+                                                                sort_by=sort_by, 
+                                                                min_price=min_price, 
                                                                 max_price=max_price, 
-                                                                conditions_id_list=formated_conditions_id_list)
+                                                                conditions_id_list=formated_conditions_id_list,
+                                                                delivery_destination=delivery_destination,
+                                                                max_delivery_cost=free_shipping)
         parameters_and_headers_list.append(list(parameters_and_headers))
 
     
     
     data = asyncio.run(gather_data(parameters_and_headers_list))
     formated_data = json.dumps(data, indent=4)
+    
     
     save_data = SavedData(search_parameter=search_parameter,
                         data=formated_data,

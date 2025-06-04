@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, SelectField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired, Optional, NumberRange
+from .country_codes import COUNTRY_CODES
 
 
 class SelectMultipleFieldCheckbox(SelectMultipleField):
@@ -14,13 +15,12 @@ CURRENCY_LIST = [
     ("CAD", "Canadian dollar"),
     ("CHF", "Swiss franc"),
     ("GBP", "Great Britain pound"),
-    ("HKG", "Hong Kong dollar"),
+    ("HKD", "Hong Kong dollar"),
     ("PLN", "Polish zloty"),
     ("SGD", "Singapore dollar"),
     ("USD", "US dollar"),
 
 ]
-
 
 MARKET_LIST = [
                (['EBAY_AT', 'EUR'], 'Austria'), 
@@ -54,13 +54,15 @@ ITEM_CONDITION_LIST = [
 
 class SearchForm(FlaskForm):
 
-    search_parameter = StringField('Search Parameter', validators=[DataRequired() ]) ### max 100 characters
+    search_parameter = StringField('Search Parameter', validators=[DataRequired()]) ### max 100 characters
+    delivery_destination = SelectField('Select delivery destination', choices=COUNTRY_CODES, validators=[DataRequired()])
+    free_shipping = SelectMultipleFieldCheckbox("Free Shipping", choices=[(0, "")], validators=[Optional()])
     limit = IntegerField("Items Limit", validators=[Optional(), NumberRange(min=0, max=200)])
     sort_by = SelectField('Sort By', choices=[(None, "-----"), ("price","Price: lowest to highest"),("-price","Price: highest to lowest")], validators=[Optional()])
     price_filter_min = IntegerField("Minimum Price", validators=[Optional()])
     price_filter_max = IntegerField("Maximum Price", validators=[Optional()])
     currency = SelectField('Convert to currency', choices=CURRENCY_LIST, validators=[Optional()])
-    market = SelectMultipleFieldCheckbox('Select Markets', choices=MARKET_LIST)
+    market = SelectMultipleFieldCheckbox('Select Markets', choices=MARKET_LIST, default=(['EBAY_US', "USD"], 'USA'))
     condition = SelectMultipleFieldCheckbox("Select conditions", choices=ITEM_CONDITION_LIST)
     
 

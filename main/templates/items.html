@@ -18,7 +18,7 @@
     </div>
       {% for item in display_list_item.items %}
         <h1>{{loop.index}}</h1> <a href="{{item.link_to_product}}"><h1> {{item.title}}</h1></a>
-        <h2>{{item.price}} {{display_list_item.currency}}</h2>
+        <h2>Price: {{item.price}} {{display_list_item.currency}}, Shipping: {{item.shipping_price}} {{display_list_item.currency}}, Price + Shipping: {{item.total_price}} {{display_list_item.currency}}</h2>
         <h2>Seller: {{item.seller}}, Condition: {{item.condition}}</h2>
         
         <form method="delete" action="/delete-item/{{item.id}}" class="inline">

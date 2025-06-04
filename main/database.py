@@ -38,6 +38,8 @@ class SingleItem(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column()
     price: Mapped[int] = mapped_column()
+    shipping_price: Mapped[int] = mapped_column()
+    total_price: Mapped[int] = mapped_column()
     seller: Mapped[str] = mapped_column()
     condition: Mapped[str] = mapped_column()
     link_to_product: Mapped[str] = mapped_column()
