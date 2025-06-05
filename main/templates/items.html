@@ -1,40 +1,61 @@
-{% extends 'index.html' %}
-{% block content %}
+{% extends 'index.html' %} {% block content %}
 
-    <div class="itemsContainer">
-      <form method="post" action="/generate-graph" class="inline">
-      <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-      <button type="submit" name="submit_param" value="submit_value" class="link-button">
+<div class="itemsContainer">
+  <form method="post" action="/generate-graph" class="inline">
+    <button
+      type="submit"
+      name="submit_param"
+      value="submit_value"
+      class="button-17"
+      role="button"
+    >
       Generate box plot for all items
-      </button>
-      </form>
-    {% for display_list_item in display_list.general_query_data %}
-    <div class="queryInfo">
+    </button>
+  </form>
+  {% for display_list_item in display_list.general_query_data %}
+  <div class="queryInfo">
     <h1>Region: {{display_list_item.market}}</h1>
-    <h1>Average price: {{display_list_item.average_price}} {{display_list_item.currency}}</h1>
-    <h1>Median price: {{display_list_item.median_price}} {{display_list_item.currency}}</h1>
-    <h1>Min price: {{display_list_item.min_price}} {{display_list_item.currency}}</h1>
-    <h1>Max price: {{display_list_item.max_price}} {{display_list_item.currency}}</h1>
-    </div>
-      {% for item in display_list_item.items %}
-        <h1>{{loop.index}}</h1> <a href="{{item.link_to_product}}"><h1> {{item.title}}</h1></a>
-        <h2>Price: {{item.price}} {{display_list_item.currency}}, Shipping: {{item.shipping_price}} {{display_list_item.currency}}, Price + Shipping: {{item.total_price}} {{display_list_item.currency}}</h2>
-        <h2>Seller: {{item.seller}}, Condition: {{item.condition}}</h2>
-        
-        <form method="delete" action="/delete-item/{{item.id}}" class="inline">
-          <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-          <button type="submit" name="submit_param" value="submit_value" class="link-button">
-            Delete Item
-          </button class="button">
-        </form>
-        <hr>
-      {%endfor%}
-      <hr>
-      
-    {%endfor%}
-    </div>
+    <h1>
+      Average price: {{display_list_item.average_price}}
+      {{display_list_item.currency}}
+    </h1>
+    <h1>
+      Median price: {{display_list_item.median_price}}
+      {{display_list_item.currency}}
+    </h1>
+    <h1>
+      Min price: {{display_list_item.min_price}} {{display_list_item.currency}}
+    </h1>
+    <h1>
+      Max price: {{display_list_item.max_price}} {{display_list_item.currency}}
+    </h1>
+  </div>
+  {% for item in display_list_item.items %}
+  <h1>{{loop.index}}</h1>
+  <a href="{{item.link_to_product}}"><h1>{{item.title}}</h1></a>
+  <h2>
+    Price: {{item.price}} {{display_list_item.currency}}, Shipping:
+    {{item.shipping_price}} {{display_list_item.currency}}, Price + Shipping:
+    {{item.total_price}} {{display_list_item.currency}}
+  </h2>
+  <h2>Seller: {{item.seller}}, Condition: {{item.condition}}</h2>
 
-   
-      
+  <form method="delete" action="/delete-item/{{item.id}}" class="center">
+    <button
+      type="submit"
+      name="submit_param"
+      value="submit_value"
+      class="button-44"
+      role="button"
+    >
+      Delete Item
+    </button>
+  </form>
+  <hr />
+  {%endfor%}
+  <hr />
+
+  {%endfor%}
+</div>
 
 {% endblock %}
