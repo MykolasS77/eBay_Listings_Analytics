@@ -19,7 +19,6 @@ def main():
     if search_form.validate_on_submit():
         search_parameter = search_form.search_parameter.data
         delivery_destination = search_form.delivery_destination.data
-
         free_shipping = int(search_form.free_shipping.data[0]) if len(
             search_form.free_shipping.data) != 0 else None
         limit = search_form.limit.data if search_form.limit.data != None else 50
