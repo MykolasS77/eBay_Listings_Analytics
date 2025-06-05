@@ -2,7 +2,7 @@ import pytest
 from main import create_app, db
 from main.database import SavedData
 import json
-
+import os
 
 #code coverage command (while in root directory) 'pytest tests --cov-report term-missing --cov=main'.
 
@@ -265,6 +265,27 @@ def test_convert_to_currency(client, main_app, currency_input):
 
         for item in general_query_data:
             assert item.currency == currency_input
+
+def test_graph_generator(client, main_app):
+    with main_app.app_context():
+        response = create_a_response(client=client, 
+                          url="/", 
+                          search_parameter="samsung galaxy s22 smartphone", 
+                          market="['EBAY_US', 'USD']",
+                          delivery_destination="LT")
+        
+        assert response.status_code == 200
+
+        response_2 = create_a_response(client=client,
+                          url="/generate-graph"
+                          )
+        
+        path_to_generated_image = os.path.abspath(os.path.join(__file__ ,"../..", "main", "static", "data.png"))
+        assert response_2.status_code == 200
+        assert os.path.exists(path_to_generated_image)
+       
+
+
 
         
 

@@ -54,4 +54,4 @@ class SingleItem(db.Model):
 
 
     
-    #### daryt dar viena lentele kiekvienam itemui
+   

@@ -103,6 +103,7 @@ async def get_data(url: str, search_parameter:dict, headers_data: dict, session)
         currency = items_response["itemSummaries"][0]["price"]["currency"]
         exhcnage_api_url = f'https://v6.exchangerate-api.com/v6/{EXCHANGE_RATE_API_KEY}/latest/{currency}'
         
+        
         exchange_rates = await session.get(url=exhcnage_api_url)
         exchange_rates_response = await exchange_rates.json()
         print("got exchange rates.")

@@ -46,7 +46,7 @@ def display_items():
 
 @blueprint_main.route("/generate-graph", methods=["GET", "POST"])
 def generate_graph():
-    save_path = os.path.dirname(os.path.abspath(__file__)) + "\static\data.png"
+    save_path = os.path.abspath(os.path.join("main", "static", "data.png"))
 
     data = SavedData.query.all()
     
