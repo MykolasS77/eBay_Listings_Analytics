@@ -246,4 +246,3 @@ COUNTRY_CODES = [
     ("ZM", "Zambia."),
     ("ZW", "Zimbabwe.")
 ]
-

@@ -14,8 +14,9 @@ class SavedData(db.Model):
     market_list: Mapped[str] = mapped_column(unique=False)
     data: Mapped[str] = mapped_column()
 
-    general_query_data: Mapped[List["GeneralQueryData"]] = relationship(back_populates="saved_data")
-    
+    general_query_data: Mapped[List["GeneralQueryData"]
+                               ] = relationship(back_populates="saved_data")
+
 
 class GeneralQueryData(db.Model):
     __tablename__ = "general_query_data"
@@ -29,9 +30,11 @@ class GeneralQueryData(db.Model):
 
     parent_id: Mapped[int] = mapped_column(ForeignKey("saved_data.id"))
 
-    items: Mapped[List["SingleItem"]] = relationship(back_populates="general_query_data")
-    saved_data: Mapped["SavedData"] = relationship(back_populates="general_query_data")
-    
+    items: Mapped[List["SingleItem"]] = relationship(
+        back_populates="general_query_data")
+    saved_data: Mapped["SavedData"] = relationship(
+        back_populates="general_query_data")
+
 
 class SingleItem(db.Model):
     __tablename__ = "single_item"
@@ -46,12 +49,5 @@ class SingleItem(db.Model):
     market: Mapped[str] = mapped_column()
 
     parent_id: Mapped[int] = mapped_column(ForeignKey("general_query_data.id"))
-    general_query_data: Mapped["GeneralQueryData"] = relationship(back_populates="items")
-
-    
-    
-
-
-
-    
-   
+    general_query_data: Mapped["GeneralQueryData"] = relationship(
+        back_populates="items")

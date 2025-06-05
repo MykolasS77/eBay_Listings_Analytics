@@ -9,7 +9,7 @@
       class="button-17"
       role="button"
     >
-      Generate box plot for all items
+      Generate a box plot chart for all items
     </button>
   </form>
   {% for display_list_item in display_list.general_query_data %}
@@ -38,15 +38,11 @@
     {{item.shipping_price}} {{display_list_item.currency}}, Price + Shipping:
     {{item.total_price}} {{display_list_item.currency}}
   </h2>
-  <h2>Seller: {{item.seller}}, Condition: {{item.condition}}</h2>
+  <h2>Seller: {{item.seller}}, Condition: {{item.condition}}.</h2>
 
   <form method="delete" action="/delete-item/{{item.id}}" class="center">
     <button
       type="submit"
-      name="submit_param"
-      value="submit_value"
-      class="button-44"
-      role="button"
     >
       Delete Item
     </button>

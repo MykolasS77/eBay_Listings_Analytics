@@ -1,20 +1,15 @@
 {% extends 'index.html' %}
 {% block content %}
 
-<div class="graph">
-<div>
-<img src="{{url_for('static', filename='data.png')}}" />
-</div>
-<a href="{{url_for('static', filename='data.png')}}"download>
-  <button class="button ">Download Graph</button>
-</a>
-<div>
 
-</div>
-</div>
-
-
-
+  <div class="center">
+  <img src="{{url_for('static', filename='data.png')}}" />
+  </div>
+  <div class="center">
+  <a href="{{url_for('static', filename='data.png')}}"download>
+    <button class="button-17 ">Download Graph</button>
+  </a>
+  </div>
 
 
 {% endblock %}

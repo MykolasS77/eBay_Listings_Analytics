@@ -20,12 +20,21 @@
   </head>
   <body>
     <header>
-      <div class="center">
-        <h1>Ebay Listings Analytics</h1>
-      </div>
+      
+        <div class="headerComponents">
+        <div style="margin-left: 10px"><h1>Ebay Listings Analytics</h1></div>
+        <div>
+          <div class="navElements">
+          <h2><a href="/">Home</a></h2>
+          <h2><a href="/about">About</a></h2>
+          </div>
+        </div>
+        </div>
+          
     </header>
     {%block content%}
-    <div class="searchFormContainer center">
+    <div class="center" style="margin-top: 20px;">
+      <div></div>
       <form method="POST" action="{{url_for('blueprint_main.main')}}">
         {{ search_form.csrf_token }}
 
@@ -35,11 +44,12 @@
         <div>{{ search_form.limit }}</div>
         <div>{{ search_form.delivery_destination.label }}</div>
         <div>{{ search_form.delivery_destination }}</div>
+        <div>{{ search_form.currency.label }}</div>
+        <div>{{ search_form.currency }}</div>
         <div>
           {{ search_form.free_shipping.label }} {{ search_form.free_shipping }}
         </div>
-        <div>{{ search_form.currency.label }}</div>
-        <div>{{ search_form.currency }}</div>
+        
         <div>{{ search_form.market.label }}</div>
         <div>{{ search_form.market }}</div>
         <div>{{ search_form.sort_by.label }}</div>
@@ -52,6 +62,7 @@
         <div>{{ search_form.condition }}</div>
         <div>{{ search_form.submit(class_="button") }}</div>
       </form>
+      
     </div>
     {%endblock%}
   </body>
