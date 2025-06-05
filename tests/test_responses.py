@@ -181,11 +181,11 @@ def test_min_and_max_price(client, main_app, min_price_input, max_price_input):
 def test_sort_by(client, main_app, sort_by_parameter):
     with main_app.app_context():
         response = create_a_response(client=client, url="/", 
-                                     search_parameter="epiphone electric guitar", 
+                                     search_parameter="Playstation 5 console", 
                                      market="['EBAY_US', 'USD']",
-                                     min_price=300,
                                      sort_by=sort_by_parameter,
-                                     delivery_destination="LT"
+                                     delivery_destination="LT",
+                                     limit=200
                                      )
         
         assert response.status_code == 200
@@ -193,10 +193,14 @@ def test_sort_by(client, main_app, sort_by_parameter):
         last_search_items = get_items()
         prices = [item.total_price for item in last_search_items]
 
+        
+        
+
         if sort_by_parameter == "price":
-            sorted_prices = sorted(prices)
+            sorted_prices = sorted(prices)     
             assert prices == sorted_prices
         if sort_by_parameter == "-price":
+            
             sorted_prices = sorted(prices, reverse=True)
             assert prices == sorted_prices
 

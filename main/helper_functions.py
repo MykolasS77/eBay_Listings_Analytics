@@ -106,7 +106,7 @@ async def get_data(url: str, search_parameter:dict, headers_data: dict, session)
         exchange_rates = await session.get(url=exhcnage_api_url)
         exchange_rates_response = await exchange_rates.json()
         print("got exchange rates.")
-        print(exchange_rates_response)
+        
 
         return_dict = {"items": items_response, "exchange_rates": exchange_rates_response}
         
@@ -131,13 +131,14 @@ def format_query_price_information(items_price_list):
 
 def get_shipping_price(item):
     if "shippingOptions" in item:
+        # print(item["title"], item["price"], item["shippingOptions"][0])
         shipping_price = item["shippingOptions"][0]["shippingCost"]["value"]
         
         return float(shipping_price)
     else:
         return 0
 
-def format_general_query_data(market_names: list, currency: str):
+def format_general_query_data(market_names: list, currency: str, sort_by: str = None):
     data = SavedData.query.all()
     last_search = data[-1]
     formated_last_search = json.loads(last_search.data)
@@ -192,8 +193,23 @@ def format_general_query_data(market_names: list, currency: str):
                                         market = market_names[index],
                                         
                                         )
+                
                 items_list.append(single_item)
-            db.session.add_all(items_list)
+            
+            
+            if sort_by == "price":
+                sorted_list = sorted(items_list, key=lambda x: x.total_price)
+                db.session.add_all(sorted_list)
+            if sort_by == "-price":
+                sorted_list = sorted(items_list, key=lambda x: x.total_price, reverse=True)
+                db.session.add_all(sorted_list)
+            if sort_by == None:
+                db.session.add_all(items_list)
+            
+            
+            
+
+            # db.session.add_all(items_list)
             db.session.commit()
     
 
@@ -231,5 +247,5 @@ def fetch_and_save_data(market: list, free_shipping: int, delivery_destination: 
     db.session.add(save_data)
     db.session.commit()
 
-    format_general_query_data(market_names=market_names, currency=currency)
+    format_general_query_data(market_names=market_names, currency=currency, sort_by=sort_by)
 
