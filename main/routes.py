@@ -28,8 +28,6 @@ def main():
         conditions_id_list = search_form.condition.data
         currency = search_form.currency.data if search_form.currency.data != "None" else None
 
-        print(free_shipping)
-
         fetch_and_save_data(search_parameter=search_parameter, delivery_destination=delivery_destination, free_shipping=free_shipping, limit=limit,
                             market=market, sort_by=sort_by, min_price=min_price, max_price=max_price, conditions_id_list=conditions_id_list, currency=currency)
 
@@ -49,8 +47,8 @@ def display_items():
 
 @blueprint_main.route("/generate-graph", methods=["GET", "POST"])
 def generate_graph():
-    save_path = os.path.abspath(os.path.join("main", "static", "data.png"))
 
+    save_path = os.path.abspath(os.path.join("main", "static", "data.png"))
     data = SavedData.query.all()
 
     last_query = data[-1]
@@ -59,6 +57,7 @@ def generate_graph():
 
     matplot_display_list = []
     market_names = []
+
     for item in general_query_data:
         price_list = [item.price for item in item.items]
         market_names.append(f"{item.market} ({item.currency})")
@@ -85,7 +84,7 @@ def delete_item(id: int):
     general_data = GeneralQueryData.query.filter_by(id=item.parent_id).first()
     items_list = general_data.items
     price_list = [item.price for item in items_list]
-    print("in route", price_list)
+
     average_price, median_price, min_price, max_price = format_query_price_information(
         price_list)
 

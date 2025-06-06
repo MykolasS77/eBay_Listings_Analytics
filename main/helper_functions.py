@@ -45,6 +45,7 @@ def str_to_list_converter_for_conditions_id_list(conditions_id_list: str) -> str
     Ebay API uses specific format for item conditions filtering (e.g 'filter=conditionIds:{1000|1500}'). 
     This function converts a string representation list of ids into this format. 
     """
+
     replacements = str.maketrans(
         {"[": "{", "]": "}", ",": "|", "'": "", " ": ""})
     formated_conditions_id_list = conditions_id_list.translate(replacements)
@@ -56,6 +57,7 @@ def request_parameters_and_headers(search_parameter: str, max_delivery_cost: int
     """
     Formatting parameters and data for requests.
     """
+
     token = generate_token()
 
     parameters = {
@@ -97,6 +99,7 @@ def convert_market_id_to_country_name(market_list: list) -> list:
     """
     Creating a list with full country names based country id.
     """
+
     new_list = []
     for index, item in enumerate(MARKET_LIST):
         if item[0] in market_list:
@@ -120,6 +123,7 @@ async def get_data(search_parameter: dict, headers_data: dict, session: aiohttp.
         print("getting data...")
         items = await session.get(url=EBAY_BROWSE_API, params=search_parameter, headers=headers_data)
         items_response = await items.json()
+
         print("got items.")
         currency = items_response["itemSummaries"][0]["price"]["currency"]
         exhcnage_api_url = f'https://v6.exchangerate-api.com/v6/{EXCHANGE_RATE_API_KEY}/latest/{currency}'
@@ -142,6 +146,7 @@ async def gather_data(parameters_and_headers_list: list) -> list:
     """
     Creates one or more asynchronous calls based on how many markets were selected.   
     """
+
     async with aiohttp.ClientSession() as session:
         tasks = [get_data(search_parameter=item[0], headers_data=item[1],
                           session=session) for item in parameters_and_headers_list]
@@ -168,6 +173,7 @@ def get_shipping_price(item: dict) -> float:
     """
     Returns shipping price for one item.
     """
+
     if "shippingOptions" in item:
         shipping_price = item["shippingOptions"][0]["shippingCost"]["value"]
 
@@ -216,7 +222,7 @@ def format_general_query_data(market_names: list, currency: str, sort_by: str = 
                 parent_id=last_search.id).all()
             items_list = []
             for item in item_summaries:
-                print("checks to see image", "image" in item)
+
                 if currency == None:
                     price = float(item["price"]["value"])
                     shipping_price = get_shipping_price(item)
