@@ -57,7 +57,7 @@ class SearchForm(FlaskForm):
     search_parameter = StringField('Search Parameter', validators=[
                                    DataRequired()])  # max 100 characters
     delivery_destination = SelectField(
-        'Select delivery destination', choices=COUNTRY_CODES, validators=[DataRequired()])
+        'Select delivery country', choices=COUNTRY_CODES, validators=[DataRequired()])
     free_shipping = BooleanField(
         'Free Shipping', validators=[Optional()])
     limit = IntegerField("Items Limit", validators=[

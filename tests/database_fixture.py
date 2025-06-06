@@ -1,9 +1,5 @@
 import pytest
 from main import create_app, db
-from main.database import SavedData
-from .helper_functions_for_testing import create_a_response
-import json
-import os
 
 
 @pytest.fixture()
