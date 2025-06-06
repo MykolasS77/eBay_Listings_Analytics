@@ -216,7 +216,7 @@ def format_general_query_data(market_names: list, currency: str, sort_by: str = 
                 parent_id=last_search.id).all()
             items_list = []
             for item in item_summaries:
-
+                print("checks to see image", "image" in item)
                 if currency == None:
                     price = float(item["price"]["value"])
                     shipping_price = get_shipping_price(item)
@@ -235,6 +235,7 @@ def format_general_query_data(market_names: list, currency: str, sort_by: str = 
                                          seller=item["seller"]["username"],
                                          condition=item["condition"],
                                          link_to_product=item["itemWebUrl"],
+                                         image_href=item["image"]["imageUrl"] if "image" in item else "",
                                          parent_id=added_item[-1].id,
                                          market=market_names[index],
 

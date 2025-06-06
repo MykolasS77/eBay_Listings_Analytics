@@ -145,7 +145,7 @@ def test_api_call_with_max_delivery(client, main_app):
                           search_parameter="epiphone electric guitar",
                           market="['EBAY_US', 'USD']",
                           delivery_destination="LT",
-                          free_shipping="0"
+                          free_shipping=True
                           )
 
         items = get_items()

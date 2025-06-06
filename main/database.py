@@ -46,6 +46,7 @@ class SingleItem(db.Model):
     seller: Mapped[str] = mapped_column()
     condition: Mapped[str] = mapped_column()
     link_to_product: Mapped[str] = mapped_column()
+    image_href: Mapped[str] = mapped_column()
     market: Mapped[str] = mapped_column()
 
     parent_id: Mapped[int] = mapped_column(ForeignKey("general_query_data.id"))

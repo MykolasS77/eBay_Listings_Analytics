@@ -1,18 +1,23 @@
 {% extends 'index.html' %} {% block content %}
 
-<div class="itemsContainer">
-  <form method="post" action="/generate-graph" class="inline">
-    <button
-      type="submit"
-      name="submit_param"
-      value="submit_value"
-      class="button-17"
-      role="button"
-    >
-      Generate a box plot chart for all items
-    </button>
-  </form>
-  {% for display_list_item in display_list.general_query_data %}
+<form
+  method="post"
+  action="/generate-graph"
+  class="inline container text-center"
+>
+  <button
+    type="submit"
+    name="submit_param"
+    value="submit_value"
+    class="button-17"
+    role="button"
+  >
+    Generate a box plot chart for all items
+  </button>
+</form>
+{% for display_list_item in display_list.general_query_data %}
+
+<div class="container text-center my-3">
   <div class="queryInfo">
     <h1>Region: {{display_list_item.market}}</h1>
     <h1>
@@ -30,28 +35,47 @@
       Max price: {{display_list_item.max_price}} {{display_list_item.currency}}
     </h1>
   </div>
-  {% for item in display_list_item.items %}
-  <h1>{{loop.index}}</h1>
-  <a href="{{item.link_to_product}}"><h1>{{item.title}}</h1></a>
-  <h2>
-    Price: {{item.price}} {{display_list_item.currency}}, Shipping:
-    {{item.shipping_price}} {{display_list_item.currency}}, Price + Shipping:
-    {{item.total_price}} {{display_list_item.currency}}
-  </h2>
-  <h2>Seller: {{item.seller}}, Condition: {{item.condition}}.</h2>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for item in display_list_item.items %}
+    <div class="col card-group">
+      <div class="card" style="width: 18rem">
+        <div style="height: 300px">
+          <img
+            src="{{item.image_href}}"
+            class="img-fluid w-100 h-100 object-fit-cover"
+          />
+        </div>
+        <div class="card-body d-flex flex-column justify-content-end">
+          <h5 class="card-title">{{item.title}}</h5>
 
-  <form method="delete" action="/delete-item/{{item.id}}" class="center">
-    <button
-      type="submit"
-    >
-      Delete Item
-    </button>
-  </form>
-  <hr />
-  {%endfor%}
-  <hr />
-
-  {%endfor%}
+          <p class="card-text text">
+            <b>Price:</b> {{item.price}} {{display_list_item.currency}},
+          </p>
+          <p class="card-text text">
+            <b>Shipping:</b> {{item.shipping_price}}
+            {{display_list_item.currency}}
+          </p>
+          <p class="card-text text">
+            <b>Total Price:</b> {{item.total_price}}
+            {{display_list_item.currency}}
+          </p>
+          <p class="card-text text"><b>Seller:</b> {{item.seller}}</p>
+          <p class="card-text text"><b>Condition:</b> {{item.condition}}</p>
+        </div>
+        <div
+          class="card-footer d-flex justify-content-between align-items-center gap-2"
+        >
+          <a href="{{item.link_to_product}}" class="btn btn-primary"
+            >See on Ebay</a
+          >
+          <form method="delete" action="/delete-item/{{item.id}}">
+            <button type="submit" class="btn btn-danger">Delete Item</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
 </div>
 
-{% endblock %}
+{%endfor%} {% endblock %}

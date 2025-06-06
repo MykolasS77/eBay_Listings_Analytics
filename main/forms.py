@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField, SelectMultipleField, widgets
+from wtforms import StringField, IntegerField, SubmitField, SelectField, SelectMultipleField, widgets, BooleanField
 from wtforms.validators import DataRequired, Optional, NumberRange
 from .country_codes import COUNTRY_CODES
 
@@ -58,8 +58,8 @@ class SearchForm(FlaskForm):
                                    DataRequired()])  # max 100 characters
     delivery_destination = SelectField(
         'Select delivery destination', choices=COUNTRY_CODES, validators=[DataRequired()])
-    free_shipping = SelectMultipleFieldCheckbox(
-        "Free Shipping", choices=[(0, "")], validators=[Optional()])
+    free_shipping = BooleanField(
+        'Free Shipping', validators=[Optional()])
     limit = IntegerField("Items Limit", validators=[
                          Optional(), NumberRange(min=0, max=200)])
     sort_by = SelectField('Sort By', choices=[(

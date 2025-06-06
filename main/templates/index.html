@@ -17,15 +17,17 @@
       href="https://fonts.googleapis.com/css2?family=Englebert&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
       rel="stylesheet"
     />
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  </head>
   </head>
   <body>
     <header>
       <div class="headerComponents">
         <div style="margin-left: 10px"><h1>Ebay Listings Analytics</h1></div>
         <div>
-          <div class="navElements">
-            <h2><a href="/">Home</a></h2>
-            <h2><a href="/about">About</a></h2>
+          <div class="navElements ">
+            <h2><a href="/" class="link-offset-2 link-underline link-underline-opacity-0">Home</a></h2>
+            <h2><a href="/about" class="link-offset-2 link-underline link-underline-opacity-0">About</a></h2>
           </div>
         </div>
       </div>
@@ -48,8 +50,8 @@
         <div>{{ search_form.delivery_destination }}</div>
         <div>{{ search_form.currency.label }}</div>
         <div>{{ search_form.currency }}</div>
-        <div>
-          {{ search_form.free_shipping.label }} {{ search_form.free_shipping }}
+        <div style="display: flex; align-items: center; gap: 6px;">
+          {{ search_form.free_shipping.label }}: {{ search_form.free_shipping(style="margin-top: 6px") }}
         </div>
 
         <div>{{ search_form.market.label }}</div>
@@ -66,5 +68,8 @@
       </form>
     </div>
     {%endblock%}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
   </body>
 </html>

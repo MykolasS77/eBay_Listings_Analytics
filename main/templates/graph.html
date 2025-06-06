@@ -1,15 +1,16 @@
-{% extends 'index.html' %}
-{% block content %}
+{% extends 'index.html' %} {% block content %}
 
-
+<div style="margin-top: 60px">
   <div class="center">
-  <img src="{{url_for('static', filename='data.png')}}" />
+    <img src="{{url_for('static', filename='data.png')}}" />
   </div>
-  <div class="center">
-  <a href="{{url_for('static', filename='data.png')}}"download>
-    <button class="button-17 ">Download Graph</button>
-  </a>
+  <div>
+    <div class="center" style="margin-left: 60px">
+      <a href="{{url_for('static', filename='data.png')}}" download>
+        <button class="button-17">Download Graph</button>
+      </a>
+    </div>
   </div>
-
+</div>
 
 {% endblock %}
