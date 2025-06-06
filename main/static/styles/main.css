@@ -10,43 +10,41 @@ body {
   align-items: center;
 }
 
-.right{
-  display: flex;
-  justify-content: end;
-  align-items: center;
+header {
+  background-color: rgba(109, 112, 112, 0.486);
+  opacity: 100%;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.headerComponents{
+header h1,
+header h2,
+header a {
+  color: white;
+  align-items: center;
+  margin-top: 2vh;
+  font-weight: 200;
+}
+
+.navElements {
+  display: flex;
+  column-gap: 10px;
+  margin-right: 10px;
+}
+
+.headerComponents {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.searchForm{
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 10px;
-  
-}
-
-.navElements{
-  display: flex; 
-  column-gap: 10px; 
-  margin-right: 10px;
-}
-
-header {
-  background-color: gray;
-  opacity: 100%;
-  height: auto;
+.searchForm {
+  background-color: rgba(199, 203, 216, 0.486);
+  width: auto;
+  padding: 30px;
   border-radius: 3px;
-}
-
-header h1 {
-  color: white;
-  align-items: center;
-  margin-top: 2vh;
-  font-weight: 200;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .itemsContainer {
@@ -61,9 +59,9 @@ header h1 {
   border-radius: 15px;
 }
 
-a, u {
+a,
+u {
   text-decoration: none;
-  color: black;
 }
 
 .button-17 {
@@ -145,8 +143,8 @@ a, u {
     rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
 }
 
-
-input,select {
+input,
+select {
   width: 300px;
 }
 

@@ -80,11 +80,14 @@ def generate_graph():
 def delete_item(id: int):
     item = SingleItem.query.filter_by(id=id).first()
     db.session.delete(item)
+    db.session.commit()
     general_data = GeneralQueryData.query.filter_by(id=item.parent_id).first()
     items_list = general_data.items
     price_list = [item.price for item in items_list]
+    print("in route", price_list)
     average_price, median_price, min_price, max_price = format_query_price_information(
         price_list)
+
     general_data.average_price = average_price
     general_data.min_price = min_price
     general_data.max_price = max_price

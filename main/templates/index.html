@@ -20,26 +20,28 @@
   </head>
   <body>
     <header>
-      
-        <div class="headerComponents">
+      <div class="headerComponents">
         <div style="margin-left: 10px"><h1>Ebay Listings Analytics</h1></div>
         <div>
           <div class="navElements">
-          <h2><a href="/">Home</a></h2>
-          <h2><a href="/about">About</a></h2>
+            <h2><a href="/">Home</a></h2>
+            <h2><a href="/about">About</a></h2>
           </div>
         </div>
-        </div>
-          
+      </div>
     </header>
     {%block content%}
-    <div class="center" style="margin-top: 20px;">
+    <div class="center" style="margin-top: 20px">
       <div></div>
-      <form method="POST" action="{{url_for('blueprint_main.main')}}">
+      <form
+        method="POST"
+        action="{{url_for('blueprint_main.main')}}"
+        class="searchForm"
+      >
         {{ search_form.csrf_token }}
 
         <div>{{ search_form.search_parameter.label }}</div>
-        <div class="searchBar">{{search_form.search_parameter}}</div>
+        <div>{{search_form.search_parameter}}</div>
         <div>{{ search_form.limit.label }}</div>
         <div>{{ search_form.limit }}</div>
         <div>{{ search_form.delivery_destination.label }}</div>
@@ -49,7 +51,7 @@
         <div>
           {{ search_form.free_shipping.label }} {{ search_form.free_shipping }}
         </div>
-        
+
         <div>{{ search_form.market.label }}</div>
         <div>{{ search_form.market }}</div>
         <div>{{ search_form.sort_by.label }}</div>
@@ -60,9 +62,8 @@
         <div>{{ search_form.price_filter_max }}</div>
         <div>{{ search_form.condition.label }}</div>
         <div>{{ search_form.condition }}</div>
-        <div>{{ search_form.submit(class_="button") }}</div>
+        <div class="center">{{ search_form.submit(class_="button-17") }}</div>
       </form>
-      
     </div>
     {%endblock%}
   </body>

@@ -152,6 +152,7 @@ def format_query_price_information(items_price_list: list) -> list:
     """
     Calculates average, median, min and max prices for each query.  
     """
+
     if len(items_price_list) != 0:
         average_price = round(sum(items_price_list) / len(items_price_list), 2)
         median_price = round(statistics.median(items_price_list), 2)
@@ -258,7 +259,7 @@ def fetch_and_save_data(market: list, free_shipping: int, delivery_destination: 
     """
     This function takes information from a form and uses it to make API calls.
     """
-    print("market list type", type(market))
+
     parameters_and_headers_list = []
     market_list = str_to_list_converter_for_market(market)
     formated_conditions_id_list = str_to_list_converter_for_conditions_id_list(
