@@ -11,7 +11,7 @@ You will also need to register for [ExchangeRate-API](https://www.exchangerate-a
 Clone the project
 
 ```bash
-  git clone https://github.com/MykolasS77/Ebay_Market_Prices_Analytics
+  git clone https://github.com/MykolasS77/eBay_Listings_Analytics
 ```
 
 Go to the project directory
