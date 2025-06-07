@@ -1,14 +1,12 @@
-
 # Ebay Listings Analytics
 
 The main idea of this project was creating a flask web application which lets you query for listings across several Ebay markets and afterwards analyzing the retrieved results. For example, you may search for "Iphone 16 Pro" and retrieve listings from Ebay US, Ebay Germany, Ebay Spain at once, with information on minimum and maximum price, average and median price for the retrieved items in each selected market. With this application you can browse for items and compare prices across several Ebay markets faster and easier.
 
-
 ## Run Locally
 
-To run this app locally you will first need to register for [eBay developers program ](https://developer.ebay.com/api-docs/static/make-a-call.html). It will take about a day until your account gets confirmed. Afterwards you will need to create a production keyset and take note of your client ID and clientSecret which will be needed for .env configuration. 
+To run this app locally you will first need to register for [eBay developers program ](https://developer.ebay.com/api-docs/static/make-a-call.html). It will take about a day until your account gets confirmed. Afterwards you will need to create a production keyset and take note of your client ID and clientSecret which will be needed for .env configuration.
 
-You will also need to register for [ExchangeRate-API](https://www.exchangerate-api.com/) and get an API key. This should be very straightforward. 
+You will also need to register for [ExchangeRate-API](https://www.exchangerate-api.com/) and get an API key. This should be very straightforward.
 
 Clone the project
 
@@ -54,7 +52,6 @@ To run this project, you will need to add the following environment variables to
 
 `EXCHANGE_RATE_API_KEY = "Your ExchangeRate-API Key"`
 
-
 Start the app by running the "run.py" file.
 
 ```bash
@@ -65,23 +62,23 @@ Start the app by running the "run.py" file.
 
 ![empty search ](https://github.com/user-attachments/assets/75f30efd-a300-4c38-92b4-478e8ec519f2)
 
-**Search Parameter**: enter a search parameter. Best to include a category name for the item you are searching for, e.g. "Iphone 16 smartphone", "Playstation 5 console", "razer blackshark v2 headphones" etc. 
+**Search Parameter**: enter a search parameter. Best to include a category name for the item you are searching for, e.g. "Iphone 16 smartphone", "Playstation 5 console", "razer blackshark v2 headphones" etc.
 
-**Items Limit**: enter the amount of items you wish to get in one query. 
+**Items Limit**: enter the amount of items you wish to get in one query.
 
 **Select Delivery Country**: shipping price gets calculated based on selected country.
 
-**Convert To Currency**: converts all of the prices to a single currency. If left unchecked, each market will show the default currency. 
+**Convert To Currency**: converts all of the prices to a single currency. If left unchecked, each market will show the default currency.
 
-**Free Shipping**: mark to only retrieve items with free shipping to selected country. 
+**Free Shipping**: mark to only retrieve items with free shipping to selected country.
 
-**Select Markets**: select the eBay markets you wish to get items from. 
+**Select Markets**: select the eBay markets you wish to get items from.
 
 **Sort By**: sorts items by total price (price + shipping). Best to use this parameter with **Minimum Price** and **Maximum Price** parameters to avoid inaccurate queries.
 
-**Minimum/Maximum Price**: select the Minimum/Maximum price for each query. If used in combination of "Convert To Currency", the items are first retrieved based on the original currency and only afterwards are converted to selected currency. 
+**Minimum/Maximum Price**: select the Minimum/Maximum price for each query. If used in combination of "Convert To Currency", the items are first retrieved based on the original currency and only afterwards are converted to selected currency.
 
-**Select Conditions**: retrieve items based on selected item conditions. 
+**Select Conditions**: retrieve items based on selected item conditions.
 
 # Example of filled search form and retrieved items.
 
@@ -93,15 +90,15 @@ Start the app by running the "run.py" file.
 
 ![searched 3](https://github.com/user-attachments/assets/8e6fa0bd-d3eb-4e59-b025-c3c88698a7c1)
 
-
-
-
 # Generate a box plot chart for all items
 
 Click on a button at the top called "Generate a box plot chart for all items" to get a box plot chart for the retrieved items total prices. Before generating a chart, you can use the "Delete" button to remove specific items from the displayed list, in order to get more accurate representation.
 
 ![graph](https://github.com/user-attachments/assets/258cc2a0-7912-4f06-9427-24b138f89f36)
 
+# Running tests
+
+To run tests, cd to root of the directory and run "pytest" or "pytest tests --cov-report term-missing --cov=main" in the terminal.
 
 ## Documentation
 
@@ -110,9 +107,3 @@ Click on a button at the top called "Generate a box plot chart for all items" to
 [Registration for eBay developers program.](https://developer.ebay.com/api-docs/static/make-a-call.html)
 
 [ExchangeRate-API.](https://www.exchangerate-api.com/)
-
-
-
-
-
-

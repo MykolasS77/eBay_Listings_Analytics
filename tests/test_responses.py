@@ -1,10 +1,6 @@
-import pytest
-from main import create_app, db
 from main.database import SavedData
-from .helper_functions_for_testing import create_a_response, get_items, get_last_search
-from .database_fixture import pytest, client, main_app
-import json
-import os
+from .helper_functions_for_testing import create_a_response
+from .database_fixture import client, main_app
 
 
 def test_request(client):

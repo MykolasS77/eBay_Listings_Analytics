@@ -76,7 +76,7 @@ def test_max_price(client, main_app, max_price_input):
 def test_min_and_max_price(client, main_app, min_price_input, max_price_input):
     with main_app.app_context():
         response = create_a_response(client=client, url="/",
-                                     search_parameter="epiphone electric guitar",
+                                     search_parameter="playstation 5 console",
                                      market="['EBAY_US', 'USD']",
                                      min_price=min_price_input,
                                      max_price=max_price_input,
