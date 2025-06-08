@@ -50,6 +50,8 @@ def str_to_list_converter_for_conditions_id_list(conditions_id_list: str) -> str
         {"[": "{", "]": "}", ",": "|", "'": "", " ": ""})
     formated_conditions_id_list = conditions_id_list.translate(replacements)
 
+    print(formated_conditions_id_list)
+
     return formated_conditions_id_list
 
 
@@ -80,7 +82,7 @@ def request_parameters_and_headers(search_parameter: str, max_delivery_cost: int
     if max_delivery_cost != None:
         filter_list.append(f"maxDeliveryCost:{max_delivery_cost}")
     if conditions_id_list != "{}":
-        filter_list.append(f"conditionIds:{conditions_id_list}")
+        filter_list.append(f"conditions:{conditions_id_list}")
 
     if len(filter_list) != 0:
         comma_sepparated_filter_list = ",".join(filter_list)

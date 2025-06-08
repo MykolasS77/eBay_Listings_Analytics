@@ -1,7 +1,7 @@
 from main.database import SavedData
 
 
-def create_a_response(client, url: str, search_parameter: str = None, delivery_destination: str = None, free_shipping: int = None, limit: int = None, market: str = None, sort_by: str = None, min_price: int = None, max_price: int = None, conditions_id_list: list = None, currency: str = None):
+def create_a_response(client, url: str, search_parameter: str = None, delivery_destination: str = None, free_shipping: int = None, limit: int = None, market: str = None, sort_by: str = None, min_price: int = None, max_price: int = None, conditions_list: list = None, currency: str = None):
 
     data_dict = {}
     if search_parameter:
@@ -16,8 +16,8 @@ def create_a_response(client, url: str, search_parameter: str = None, delivery_d
         data_dict["price_filter_min"] = min_price
     if max_price:
         data_dict["price_filter_max"] = max_price
-    if conditions_id_list:
-        data_dict["condition"] = conditions_id_list
+    if conditions_list:
+        data_dict["condition"] = conditions_list
     if delivery_destination:
         data_dict["delivery_destination"] = delivery_destination
     if free_shipping:

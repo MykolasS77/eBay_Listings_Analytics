@@ -40,16 +40,16 @@ MARKET_LIST = [
     (['EBAY_US', "USD"], 'USA'),
 ]
 
-ITEM_CONDITION_LIST = [
-    (1000, "New: unopened, unused"),
-    (1500, "New: pacaking may be missing or opened"),
-    (2750, "Like new: very lightly used"),
-    (3000, "Used, excellent condition"),
-    (4000, "Used, very good condition"),
-    (5000, "Used, good condition"),
-    (6000, "Used, acceptable condition"),
-    (7000, "For parts or not working"),
-]
+# ITEM_CONDITION_LIST = [
+#     (1000, "New: unopened, unused"),
+#     (1500, "New: pacaking may be missing or opened"),
+#     (2750, "Like new: very lightly used"),
+#     (3000, "Used, excellent condition"),
+#     (4000, "Used, very good condition"),
+#     (5000, "Used, good condition"),
+#     (6000, "Used, acceptable condition"),
+#     (7000, "For parts or not working"),
+# ]
 
 
 class SearchForm(FlaskForm):
@@ -71,6 +71,6 @@ class SearchForm(FlaskForm):
     market = SelectMultipleFieldCheckbox(
         'Select Markets:', choices=MARKET_LIST, default=(['EBAY_US', "USD"], 'USA'))
     condition = SelectMultipleFieldCheckbox(
-        "Select Conditions:", choices=ITEM_CONDITION_LIST)
+        "Select Conditions:", choices=[("NEW", "New"), ("USED", "Used")], validators=[Optional()])
 
     submit = SubmitField('Submit')

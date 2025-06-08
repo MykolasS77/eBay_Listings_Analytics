@@ -115,8 +115,8 @@ def test_sort_by(client, main_app, sort_by_parameter):
             assert prices == sorted_prices
 
 
-@pytest.mark.parametrize("conditions_id_list_input", [['1000', '3000'], ["7000"], ["1500", "4000", "6000"], ["2750", "5000"]])
-def test_api_call_with_conditions(client, main_app, conditions_id_list_input):
+@pytest.mark.parametrize("conditions_input", [["NEW"], ["USED"]])
+def test_api_call_with_conditions(client, main_app, conditions_input):
     with main_app.app_context():
         create_a_response(client=client, url="/",
                           search_parameter="epiphone electric guitar",
@@ -124,7 +124,7 @@ def test_api_call_with_conditions(client, main_app, conditions_id_list_input):
                           min_price=300,
                           sort_by="price",
                           delivery_destination="LT",
-                          conditions_id_list=conditions_id_list_input
+                          conditions_list=conditions_input
                           )
 
         last_search = get_last_search()
@@ -132,11 +132,15 @@ def test_api_call_with_conditions(client, main_app, conditions_id_list_input):
 
         for item in formated_last_search:
             if item != None:
-                condition_id_list = [item_in_item_summaries["conditionId"]
-                                     for item_in_item_summaries in item["items"]["itemSummaries"]]
-                print(condition_id_list)
-                for condition_id in condition_id_list:
-                    assert condition_id in conditions_id_list_input
+
+                condition_list = [item_in_item_summaries["condition"]
+                                  for item_in_item_summaries in item["items"]["itemSummaries"]]
+
+                for condition in condition_list:
+                    if conditions_input[0] == "NEW":
+                        assert condition != "Used"
+                    if conditions_input[0] == "USED":
+                        assert condition != "New"
 
 
 def test_api_call_with_max_delivery(client, main_app):
