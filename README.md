@@ -94,6 +94,9 @@ Start the app by running the "run.py" file.
 
 Click on a button at the top called "Generate a box plot chart for all items" to get a box plot chart for the retrieved items total prices. Before generating a chart, you can use the "Delete" button to remove specific items from the displayed list, in order to get a more accurate representation.
 
+
+![searched 1](https://github.com/user-attachments/assets/2f3d5b46-00a7-4766-98a1-ba912f2dc381)
+
 ![graph](https://github.com/user-attachments/assets/258cc2a0-7912-4f06-9427-24b138f89f36)
 
 # Running tests
