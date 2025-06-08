@@ -1,2 +1,82 @@
 {% extends 'index.html' %} {% block content %}
+
+<div class="container">
+  <h1>About this project</h1>
+  <p>
+    The main idea of this project was creating a flask web application which
+    lets you query for listings across several eBay markets and afterwards
+    analyzing the retrieved results. For example, you may search for "Iphone 16
+    Pro" and retrieve listings from eBay US, eBay Germany, eBay Spain at once,
+    with information on minimum and maximum price, average and median price for
+    the retrieved items in each selected market. With this application you can
+    browse for items and compare prices across several eBay markets faster and
+    easier.
+  </p>
+  <h1>Search Form Guide</h1>
+  <ul>
+    <li>
+      <strong>Search Parameter</strong>: enter a search parameter. Best to
+      include a category name for the item you are searching for, e.g. "Iphone
+      16 smartphone", "Playstation 5 console", "razer blackshark v2 headphones"
+      etc.
+    </li>
+    <li>
+      <strong>Items Limit</strong>: enter the amount of items you wish to get in
+      one query.
+    </li>
+    <li>
+      <strong>Select Delivery Country</strong>: shipping price gets calculated
+      based on selected country.
+    </li>
+    <li>
+      <strong>Convert To Currency</strong>: converts all of the prices to a
+      single currency. If left unchecked, each market will show the default
+      currency.
+    </li>
+    <li>
+      <strong>Free Shipping</strong>: mark to only retrieve items with free
+      shipping to selected country.
+    </li>
+    <li>
+      <strong>Select Markets</strong>: select the eBay markets you wish to get
+      items from.
+    </li>
+    <li>
+      <strong>Sort By</strong>: sorts items by total price (price + shipping).
+      Best to use this parameter with <strong>Minimum Price</strong> and
+      <strong>Maximum Price</strong> parameters to avoid inaccurate queries.
+    </li>
+    <li>
+      <strong>Minimum/Maximum Price</strong>: select the Minimum/Maximum price
+      for each query. If used in combination of "Convert To Currency", the items
+      are first retrieved based on the original currency and only afterwards are
+      converted to selected currency.
+    </li>
+    <li>
+      <strong>Select Conditions</strong>: retrieve items based on selected item
+      conditions.
+    </li>
+  </ul>
+  <img
+    src="{{url_for('static', filename='screenshots/search.png')}}"
+    class="w-100 my-3"
+  />
+
+  <h1>Generate a box plot chart for all items</h1>
+  <p>
+    Click on a button at the top called "Generate a box plot chart for all
+    items" to get a box plot chart for the retrieved items total prices. Before
+    generating a chart, you can use the "Delete" button to remove specific items
+    from the displayed list, in order to get a more accurate representation.
+  </p>
+  <img
+    src="{{url_for('static', filename='screenshots/searched 1.png')}}"
+    class="w-100 my-3"
+  />
+  <img
+    src="{{url_for('static', filename='screenshots/graph.png')}}"
+    class="w-100 my-3"
+  />
+</div>
+
 {% endblock %}

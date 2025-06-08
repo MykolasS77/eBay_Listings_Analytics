@@ -39,7 +39,7 @@ def test_search_with_market(client, main_app):
 def test_search_with_several_markets(client, main_app):
     with main_app.app_context():
         response = create_a_response(client=client, url="/",
-                                     search_parameter="epiphone electric guitar",
+                                     search_parameter="iphone 16 smartphone",
                                      market=["['EBAY_DE', 'EUR']",
                                              "['EBAY_US', 'USD']"],
                                      delivery_destination="LT")

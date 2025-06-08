@@ -1,6 +1,6 @@
 # eBay Listings Analytics
 
-The main idea of this project was creating a flask web application which lets you query for listings across several Ebay markets and afterwards analyzing the retrieved results. For example, you may search for "Iphone 16 Pro" and retrieve listings from Ebay US, Ebay Germany, Ebay Spain at once, with information on minimum and maximum price, average and median price for the retrieved items in each selected market. With this application you can browse for items and compare prices across several Ebay markets faster and easier.
+The main idea of this project was creating a flask web application which lets you query for listings across several eBay markets and afterwards analyzing the retrieved results. For example, you may search for "Iphone 16 Pro" and retrieve listings from eBay US, eBay Germany, eBay Spain at once, with information on minimum and maximum price, average and median price for the retrieved items in each selected market. With this application you can browse for items and compare prices across several eBay markets faster and easier.
 
 ## Run Locally
 
@@ -92,7 +92,7 @@ Start the app by running the "run.py" file.
 
 # Generate a box plot chart for all items
 
-Click on a button at the top called "Generate a box plot chart for all items" to get a box plot chart for the retrieved items total prices. Before generating a chart, you can use the "Delete" button to remove specific items from the displayed list, in order to get more accurate representation.
+Click on a button at the top called "Generate a box plot chart for all items" to get a box plot chart for the retrieved items total prices. Before generating a chart, you can use the "Delete" button to remove specific items from the displayed list, in order to get a more accurate representation.
 
 ![graph](https://github.com/user-attachments/assets/258cc2a0-7912-4f06-9427-24b138f89f36)
 
