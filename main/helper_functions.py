@@ -40,7 +40,7 @@ def str_to_list_converter_for_market(market_list_string: list) -> list:
         return new_list
 
 
-def str_to_list_converter_for_conditions_id_list(conditions_id_list: str) -> str:
+def conditions_list_formater(conditions_id_list: str) -> str:
     """
     Ebay API uses specific format for item conditions filtering (e.g 'filter=conditionIds:{1000|1500}'). 
     This function converts a string representation list of ids into this format. 
@@ -50,12 +50,16 @@ def str_to_list_converter_for_conditions_id_list(conditions_id_list: str) -> str
         {"[": "{", "]": "}", ",": "|", "'": "", " ": ""})
     formated_conditions_id_list = conditions_id_list.translate(replacements)
 
-    print(formated_conditions_id_list)
-
     return formated_conditions_id_list
 
 
-def request_parameters_and_headers(search_parameter: str, max_delivery_cost: int, limit: int, sort_by: str, min_price: int, max_price: int, market: str, conditions_id_list: list, delivery_destination: str):
+def paramaters_and_headers_for_request(search_parameter: str,
+                                       max_delivery_cost: int,
+                                       limit: int, sort_by: str,
+                                       min_price: int, max_price: int,
+                                       market: str,
+                                       conditions_id_list: list,
+                                       delivery_destination: str) -> dict:
     """
     Formatting parameters and data for requests.
     """
@@ -106,10 +110,11 @@ def convert_market_id_to_country_name(market_list: list) -> list:
     for index, item in enumerate(MARKET_LIST):
         if item[0] in market_list:
             new_list.append(item[1])
+
     return new_list
 
 
-def convert_to_specified_currency(price: int, convert_to_currency: str, exchange_rate_dict: dict):
+def convert_to_specified_currency(price: int, convert_to_currency: str, exchange_rate_dict: dict) -> float:
 
     exchange_rate = exchange_rate_dict["conversion_rates"][convert_to_currency]
 
@@ -184,7 +189,7 @@ def get_shipping_price(item: dict) -> float:
         return 0
 
 
-def format_general_query_data(market_names: list, currency: str, sort_by: str = None):
+def format_general_query_data(market_names: list, currency: str, sort_by: str = None) -> None:
     """
     Saves data from API call into a database.  
     """
@@ -264,28 +269,37 @@ def format_general_query_data(market_names: list, currency: str, sort_by: str = 
             db.session.commit()
 
 
-def fetch_and_save_data(market: list, free_shipping: int, delivery_destination: str, search_parameter: str, limit: int, sort_by: str, min_price: int, max_price: int, conditions_id_list: list, currency: str):
+def fetch_and_save_data(market: list,
+                        free_shipping: int,
+                        delivery_destination: str,
+                        search_parameter: str,
+                        limit: int,
+                        sort_by: str,
+                        min_price: int,
+                        max_price: int,
+                        conditions_id_list: list,
+                        currency: str) -> None:
     """
     This function takes information from a form and uses it to make API calls.
     """
 
     parameters_and_headers_list = []
     market_list = str_to_list_converter_for_market(market)
-    formated_conditions_id_list = str_to_list_converter_for_conditions_id_list(
+    formated_conditions_id_list = conditions_list_formater(
         str(conditions_id_list))
     market_names = convert_market_id_to_country_name(market_list=market_list)
 
     for market in market_list:
 
-        parameters_and_headers = request_parameters_and_headers(search_parameter=search_parameter,
-                                                                limit=limit,
-                                                                market=market,
-                                                                sort_by=sort_by,
-                                                                min_price=min_price,
-                                                                max_price=max_price,
-                                                                conditions_id_list=formated_conditions_id_list,
-                                                                delivery_destination=delivery_destination,
-                                                                max_delivery_cost=free_shipping)
+        parameters_and_headers = paramaters_and_headers_for_request(search_parameter=search_parameter,
+                                                                    limit=limit,
+                                                                    market=market,
+                                                                    sort_by=sort_by,
+                                                                    min_price=min_price,
+                                                                    max_price=max_price,
+                                                                    conditions_id_list=formated_conditions_id_list,
+                                                                    delivery_destination=delivery_destination,
+                                                                    max_delivery_cost=free_shipping)
         parameters_and_headers_list.append(list(parameters_and_headers))
 
     data = asyncio.run(gather_data(parameters_and_headers_list))

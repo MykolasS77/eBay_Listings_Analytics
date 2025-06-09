@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for
+from flask import Flask, Blueprint, Response, render_template, redirect, url_for
 from .helper_functions import fetch_and_save_data, format_query_price_information
 from .forms import SearchForm
 from .database import db, SavedData, GeneralQueryData, SingleItem
@@ -14,7 +14,10 @@ matplotlib.use('Agg')
 
 
 @blueprint_main.route("/", methods=["GET", "POST"])
-def main():
+def main() -> Response:
+    """
+    Main route and form validation.
+    """
     search_form = SearchForm()
     if search_form.validate_on_submit():
         search_parameter = search_form.search_parameter.data
@@ -37,7 +40,10 @@ def main():
 
 
 @blueprint_main.route("/display-items", methods=["GET", "POST"])
-def display_items():
+def display_items() -> Response:
+    """
+    Displays items which are saved to a databse after an API call.
+    """
     data = SavedData.query.all()
     last_search = data[-1]
     display_format = SavedData.query.filter_by(id=last_search.id).first()
@@ -46,7 +52,10 @@ def display_items():
 
 
 @blueprint_main.route("/generate-graph", methods=["GET", "POST"])
-def generate_graph():
+def generate_graph() -> Response:
+    """
+    Generates a boxplot chart and saves it inside the "static" directory as an image. 
+    """
 
     save_path = os.path.abspath(os.path.join("main", "static", "data.png"))
     data = SavedData.query.all()
@@ -77,7 +86,11 @@ def generate_graph():
 
 
 @blueprint_main.route("/delete-item/<int:id>", methods=["GET", "POST"])
-def delete_item(id: int):
+def delete_item(id: int) -> Response:
+    """
+    Deletes an item from a database to get a more accurate representation in the boxplot chart.
+    """
+
     item = SingleItem.query.filter_by(id=id).first()
     db.session.delete(item)
     db.session.commit()
@@ -99,6 +112,9 @@ def delete_item(id: int):
 
 
 @blueprint_main.route("/about", methods=["GET"])
-def about_page():
+def about_page() -> Response:
+    """
+    Route to about page.
+    """
 
     return render_template("about.html")

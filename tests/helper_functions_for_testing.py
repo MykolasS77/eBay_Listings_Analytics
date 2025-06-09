@@ -2,6 +2,9 @@ from main.database import SavedData
 
 
 def create_a_response(client, url: str, search_parameter: str = None, delivery_destination: str = None, free_shipping: int = None, limit: int = None, market: str = None, sort_by: str = None, min_price: int = None, max_price: int = None, conditions_list: list = None, currency: str = None):
+    """
+    Creates a POST response for the form. Used for testing
+    """
 
     data_dict = {}
     if search_parameter:
@@ -31,12 +34,18 @@ def create_a_response(client, url: str, search_parameter: str = None, delivery_d
 
 
 def get_items():
+    """
+    Gets first item from SavedData.
+    """
     last_search = SavedData.query.first()
     items = last_search.general_query_data[0].items
     return items
 
 
 def get_last_search():
+    """
+    Gets information from the last search.
+    """
     data = SavedData.query.all()
     last_search = data[-1]
     return last_search

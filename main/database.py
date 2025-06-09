@@ -7,6 +7,13 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 db = SQLAlchemy()
 
 
+"""
+   SavedData table is used to put recieved json format files from the eBay API. 
+   It has a one to many relationship with GeneralQueryData, which holds median, average, min, max price for items recieved from each region selected in search.
+   GeneralQueryData has one to many relationship with SingleItem, which holds information about each recieved product. 
+"""
+
+
 class SavedData(db.Model):
     __tablename__ = "saved_data"
     id: Mapped[int] = mapped_column(primary_key=True)

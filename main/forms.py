@@ -1,13 +1,22 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, SelectField, SelectMultipleField, widgets, BooleanField
-from wtforms.validators import DataRequired, Optional, NumberRange
+from wtforms.validators import DataRequired, Optional, NumberRange, Length
 from .country_codes import COUNTRY_CODES
 
 
 class SelectMultipleFieldCheckbox(SelectMultipleField):
+
+    """
+    Turns multiple options field to checkbox select field. It was needed to select several options at once.
+    """
+
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
 
+
+"""
+CURRENCY_LIST holds currency codes which are used for conversion.
+"""
 
 CURRENCY_LIST = [
     (None, "-----"),
@@ -21,6 +30,10 @@ CURRENCY_LIST = [
     ("USD", "US dollar"),
 
 ]
+
+"""
+The list inside MARKET_LIST consists of country code and the default currency, which are needed when making calls to eBay API. 
+"""
 
 MARKET_LIST = [
     (['EBAY_AT', 'EUR'], 'Austria'),
@@ -40,22 +53,15 @@ MARKET_LIST = [
     (['EBAY_US', "USD"], 'USA'),
 ]
 
-# ITEM_CONDITION_LIST = [
-#     (1000, "New: unopened, unused"),
-#     (1500, "New: pacaking may be missing or opened"),
-#     (2750, "Like new: very lightly used"),
-#     (3000, "Used, excellent condition"),
-#     (4000, "Used, very good condition"),
-#     (5000, "Used, good condition"),
-#     (6000, "Used, acceptable condition"),
-#     (7000, "For parts or not working"),
-# ]
-
 
 class SearchForm(FlaskForm):
 
+    """
+    The search form.
+    """
+
     search_parameter = StringField('Search Parameter', validators=[
-                                   DataRequired()])  # max 100 characters
+                                   DataRequired(), Length(max=100)])
     delivery_destination = SelectField(
         'Select Delivery Country', choices=COUNTRY_CODES, validators=[DataRequired()])
     free_shipping = BooleanField(

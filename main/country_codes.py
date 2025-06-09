@@ -1,3 +1,7 @@
+"""
+List of country codes which is used for the "Select Delivery Country" parameter".
+"""
+
 COUNTRY_CODES = [
     ("AD", "Andorra."),
     ("AE", "United Arab Emirates."),
