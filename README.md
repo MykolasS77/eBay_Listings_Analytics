@@ -11,29 +11,29 @@ You will also need to register for [ExchangeRate-API](https://www.exchangerate-a
 Clone the project
 
 ```bash
-  git clone https://github.com/MykolasS77/eBay_Listings_Analytics
+git clone https://github.com/MykolasS77/eBay_Listings_Analytics
 ```
 
 Go to the project directory
 
 ```bash
-  cd project-location
+cd project-location
 ```
 
 Create and activate a virtual environment.
 
 ```bash
-  python -m venv .venv
+python -m venv .venv
 ```
 
 ```bash
-  source .venv/Scripts/activate
+source .venv/Scripts/activate
 ```
 
 Install dependencies
 
 ```bash
-  pip install flask matplotlib requests statistics asyncio aiohttp flask_wtf wtforms flask_sqlalchemy sqlalchemy pytest dotenv
+pip install flask matplotlib requests statistics asyncio aiohttp flask_wtf wtforms flask_sqlalchemy sqlalchemy pytest dotenv
 ```
 
 ## Environment Variables
