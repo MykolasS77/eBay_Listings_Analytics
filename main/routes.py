@@ -12,12 +12,16 @@ blueprint_main = Blueprint('blueprint_main', __name__,
                            template_folder="templates")
 matplotlib.use('Agg')
 
+print("blueprint_main routes loaded")
+
 
 @blueprint_main.route("/", methods=["GET", "POST"])
 def main() -> Response:
     """
     Main route and form validation.
     """
+
+    print("route hit")
     search_form = SearchForm()
     if search_form.validate_on_submit():
         search_parameter = search_form.search_parameter.data

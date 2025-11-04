@@ -27,13 +27,13 @@ python -m venv .venv
 ```
 
 ```bash
-source .venv/Scripts/activate
+.venv/Scripts/activate
 ```
 
 Install dependencies
 
 ```bash
-pip install flask matplotlib requests statistics asyncio aiohttp flask_wtf wtforms flask_sqlalchemy sqlalchemy pytest dotenv
+pip install flask matplotlib requests statistics asyncio aiohttp flask_wtf wtforms flask_sqlalchemy sqlalchemy pytest dotenv pytest-cov
 ```
 
 ## Environment Variables
@@ -93,7 +93,6 @@ Start the app by running the "run.py" file.
 # Generate a box plot chart for all items
 
 Click on a button at the top called "Generate a box plot chart for all items" to get a box plot chart for the retrieved items total prices. Before generating a chart, you can use the "Delete" button to remove specific items from the displayed list, in order to get a more accurate representation.
-
 
 ![searched 1](https://github.com/user-attachments/assets/2f3d5b46-00a7-4766-98a1-ba912f2dc381)
 

@@ -59,7 +59,9 @@ def paramaters_and_headers_for_request(search_parameter: str,
                                        min_price: int, max_price: int,
                                        market: str,
                                        conditions_id_list: list,
-                                       delivery_destination: str) -> dict:
+                                       delivery_destination: str,
+                                       currency: str
+                                       ) -> dict:
     """
     Formatting parameters and data for requests.
     """
@@ -72,17 +74,19 @@ def paramaters_and_headers_for_request(search_parameter: str,
 
     filter_list = []
 
+    if currency == None:
+        currency = market[1]
     if limit != None:
         parameters["limit"] = limit
     if sort_by != None:
         parameters["sort"] = sort_by
     if min_price != None and max_price != None:
         filter_list.append(
-            f"price:[{min_price}..{max_price}],priceCurrency:{market[1]}")
+            f"price:[{min_price}..{max_price}],priceCurrency:{currency}")
     if min_price != None and max_price == None:
-        filter_list.append(f"price:[{min_price}..],priceCurrency:{market[1]}")
+        filter_list.append(f"price:[{min_price}..],priceCurrency:{currency}")
     if max_price != None and min_price == None:
-        filter_list.append(f"price:[..{max_price}],priceCurrency:{market[1]}")
+        filter_list.append(f"price:[..{max_price}],priceCurrency:{currency}")
     if max_delivery_cost != None:
         filter_list.append(f"maxDeliveryCost:{max_delivery_cost}")
     if conditions_id_list != "{}":
@@ -122,7 +126,7 @@ def convert_to_specified_currency(price: int, convert_to_currency: str, exchange
     return new_price
 
 
-async def get_data(search_parameter: dict, headers_data: dict, session: aiohttp.client.ClientSession) -> dict:
+async def get_data(search_parameter: dict, headers_data: dict, init_currency_conversion: bool, session: aiohttp.client.ClientSession) -> dict:
     """
     Gets listings data from Ebay API and exchange rates from ExchangeRateAPI, which is used to convert to specified currency if needed.  
     """
@@ -130,17 +134,21 @@ async def get_data(search_parameter: dict, headers_data: dict, session: aiohttp.
         print("getting data...")
         items = await session.get(url=EBAY_BROWSE_API, params=search_parameter, headers=headers_data)
         items_response = await items.json()
-
+        return_dict = {}
         print("got items.")
-        currency = items_response["itemSummaries"][0]["price"]["currency"]
-        exhcnage_api_url = f'https://v6.exchangerate-api.com/v6/{EXCHANGE_RATE_API_KEY}/latest/{currency}'
 
-        exchange_rates = await session.get(url=exhcnage_api_url)
-        exchange_rates_response = await exchange_rates.json()
-        print("got exchange rates.")
+        if init_currency_conversion != None:
+            currency = items_response["itemSummaries"][0]["price"]["currency"]
+            exhcnage_api_url = f'https://v6.exchangerate-api.com/v6/{EXCHANGE_RATE_API_KEY}/latest/{currency}'
 
-        return_dict = {"items": items_response,
-                       "exchange_rates": exchange_rates_response}
+            exchange_rates = await session.get(url=exhcnage_api_url)
+            exchange_rates_response = await exchange_rates.json()
+            print("got exchange rates.")
+
+            return_dict = {"items": items_response,
+                           "exchange_rates": exchange_rates_response}
+        else:
+            return_dict = {"items": items_response}
 
         return return_dict
 
@@ -149,14 +157,14 @@ async def get_data(search_parameter: dict, headers_data: dict, session: aiohttp.
         return None
 
 
-async def gather_data(parameters_and_headers_list: list) -> list:
+async def gather_data(parameters_and_headers_list: list, init_currency_conversion: str | None) -> list:
     """
     Creates one or more asynchronous calls based on how many markets were selected.   
     """
 
     async with aiohttp.ClientSession() as session:
         tasks = [get_data(search_parameter=item[0], headers_data=item[1],
-                          session=session) for item in parameters_and_headers_list]
+                          init_currency_conversion=init_currency_conversion, session=session) for item in parameters_and_headers_list]
         return await asyncio.gather(*tasks)
 
 
@@ -299,10 +307,13 @@ def fetch_and_save_data(market: list,
                                                                     max_price=max_price,
                                                                     conditions_id_list=formated_conditions_id_list,
                                                                     delivery_destination=delivery_destination,
-                                                                    max_delivery_cost=free_shipping)
+                                                                    max_delivery_cost=free_shipping,
+                                                                    currency=currency
+                                                                    )
         parameters_and_headers_list.append(list(parameters_and_headers))
 
-    data = asyncio.run(gather_data(parameters_and_headers_list))
+    data = asyncio.run(gather_data(
+        parameters_and_headers_list, init_currency_conversion=currency))
     formated_data = json.dumps(data, indent=4)
 
     save_data = SavedData(search_parameter=search_parameter,
