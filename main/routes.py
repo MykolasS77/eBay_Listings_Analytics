@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, Response, render_template, redirect, url_for
-from .helper_functions import fetch_and_save_data, format_query_price_information
+from .helper_functions.api_call import fetch_and_save_data
+from .helper_functions.format_data import format_query_price_information
 from .forms import SearchForm
 from .database import db, SavedData, GeneralQueryData, SingleItem
 import matplotlib
@@ -21,7 +22,6 @@ def main() -> Response:
     Main route and form validation.
     """
 
-    print("route hit")
     search_form = SearchForm()
     if search_form.validate_on_submit():
         search_parameter = search_form.search_parameter.data

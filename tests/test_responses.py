@@ -1,7 +1,7 @@
 from main.database import SavedData
 from .helper_functions_for_testing import create_a_response
 from .database_fixture import client, main_app
-from main.helper_functions import get_data
+from main.helper_functions.api_call import get_data
 import pytest
 
 
