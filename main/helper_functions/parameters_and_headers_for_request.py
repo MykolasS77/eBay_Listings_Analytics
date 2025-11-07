@@ -31,7 +31,8 @@ def paramaters_and_headers_for_request(search_parameter: str,
                                        market: str,
                                        conditions_id_list: list,
                                        delivery_destination: str,
-                                       currency: str
+                                       currency: str,
+                                       match_listing_locations_to_selected_market:bool
                                        ) -> dict:
     """
     Formatting parameters and data for requests.
@@ -62,6 +63,8 @@ def paramaters_and_headers_for_request(search_parameter: str,
         filter_list.append(f"maxDeliveryCost:{max_delivery_cost}")
     if conditions_id_list != "{}":
         filter_list.append(f"conditions:{conditions_id_list}")
+    if match_listing_locations_to_selected_market == True:
+        filter_list.append(f"itemLocationCountry:{market[0][-2:]}")
 
     if len(filter_list) != 0:
         comma_sepparated_filter_list = ",".join(filter_list)

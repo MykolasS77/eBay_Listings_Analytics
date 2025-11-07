@@ -55,6 +55,7 @@ class SingleItem(db.Model):
     link_to_product: Mapped[str] = mapped_column()
     image_href: Mapped[str] = mapped_column()
     market: Mapped[str] = mapped_column()
+    location: Mapped[str] = mapped_column()
 
     parent_id: Mapped[int] = mapped_column(ForeignKey("general_query_data.id"))
     general_query_data: Mapped["GeneralQueryData"] = relationship(

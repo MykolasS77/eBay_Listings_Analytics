@@ -2,6 +2,7 @@ import json
 import statistics
 from ..database import db, SavedData, GeneralQueryData, SingleItem
 from .converters import convert_to_specified_currency
+from ..country_codes import get_country_name_by_id
 
 
 def format_general_query_data(market_names: list, currency: str, sort_by: str = None) -> None:
@@ -66,6 +67,8 @@ def format_general_query_data(market_names: list, currency: str, sort_by: str = 
                                          image_href=item["image"]["imageUrl"] if "image" in item else "",
                                          parent_id=added_item[-1].id,
                                          market=market_names[index],
+                                         location=get_country_name_by_id(
+                                             item["itemLocation"]["country"])
 
                                          )
 

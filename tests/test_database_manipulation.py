@@ -14,6 +14,7 @@ def test_delete_items(client, main_app):
                                      delivery_destination="LT")
 
         assert response.status_code == 200
+        print("response created")
         last_search = SavedData.query.first()
         items = last_search.general_query_data[0].items
 

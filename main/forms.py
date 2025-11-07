@@ -66,6 +66,8 @@ class SearchForm(FlaskForm):
         'Select Delivery Country', choices=COUNTRY_CODES, validators=[DataRequired()])
     free_shipping = BooleanField(
         'Free Shipping:', validators=[Optional()])
+    match_listing_locations_to_selected_market = BooleanField(
+        'Match Listing Locations To Selected Regions:', validators=[Optional()])
     limit = IntegerField("Items Limit", validators=[
                          Optional(), NumberRange(min=0, max=200)])
     sort_by = SelectField('Sort By', choices=[(

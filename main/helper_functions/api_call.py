@@ -52,6 +52,7 @@ async def gather_data(parameters_and_headers_list: list, init_currency_conversio
 
 def fetch_and_save_data(market: list,
                         free_shipping: int,
+                        match_listing_locations_to_selected_market: bool,
                         delivery_destination: str,
                         search_parameter: str,
                         limit: int,
@@ -81,7 +82,8 @@ def fetch_and_save_data(market: list,
                                                                     conditions_id_list=formated_conditions_id_list,
                                                                     delivery_destination=delivery_destination,
                                                                     max_delivery_cost=free_shipping,
-                                                                    currency=currency
+                                                                    currency=currency,
+                                                                    match_listing_locations_to_selected_market=match_listing_locations_to_selected_market
                                                                     )
         parameters_and_headers_list.append(list(parameters_and_headers))
 

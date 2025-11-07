@@ -27,6 +27,7 @@ def main() -> Response:
         search_parameter = search_form.search_parameter.data
         delivery_destination = search_form.delivery_destination.data
         free_shipping = 0 if search_form.free_shipping.data == True else None
+        match_listing_locations_to_selected_market = search_form.match_listing_locations_to_selected_market.data
         limit = search_form.limit.data if search_form.limit.data != None else 50
         market = search_form.market.data if search_form.market.data != None else "EBAY_US"
         sort_by = search_form.sort_by.data if search_form.sort_by.data != "None" else None
@@ -35,7 +36,7 @@ def main() -> Response:
         conditions_id_list = search_form.condition.data
         currency = search_form.currency.data if search_form.currency.data != "None" else None
 
-        fetch_and_save_data(search_parameter=search_parameter, delivery_destination=delivery_destination, free_shipping=free_shipping, limit=limit,
+        fetch_and_save_data(search_parameter=search_parameter, delivery_destination=delivery_destination, free_shipping=free_shipping, match_listing_locations_to_selected_market=match_listing_locations_to_selected_market, limit=limit,
                             market=market, sort_by=sort_by, min_price=min_price, max_price=max_price, conditions_id_list=conditions_id_list, currency=currency)
 
         return redirect(url_for("blueprint_main.display_items"))
