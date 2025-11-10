@@ -27,13 +27,13 @@ python -m venv .venv
 ```
 
 ```bash
-.venv/Scripts/activate
+source .venv/Scripts/activate
 ```
 
 Install dependencies
 
 ```bash
-pip install flask matplotlib requests statistics asyncio aiohttp flask_wtf wtforms flask_sqlalchemy sqlalchemy pytest dotenv pytest-cov
+pip install -r requirements.txt
 ```
 
 ## Environment Variables

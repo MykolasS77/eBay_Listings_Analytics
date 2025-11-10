@@ -1,11 +1,11 @@
+import matplotlib
+import matplotlib.pyplot as plt
+import os
 from flask import Flask, Blueprint, Response, render_template, redirect, url_for
 from .helper_functions.api_call import fetch_and_save_data
 from .helper_functions.format_data import format_query_price_information
 from .forms import SearchForm
 from .database import db, SavedData, GeneralQueryData, SingleItem
-import matplotlib
-import matplotlib.pyplot as plt
-import os
 
 
 app = Flask(__name__)

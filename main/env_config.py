@@ -1,5 +1,6 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+
 
 """
     Gets information from the .env file, which is necessary for this program to function properly.

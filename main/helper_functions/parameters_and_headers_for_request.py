@@ -32,7 +32,7 @@ def paramaters_and_headers_for_request(search_parameter: str,
                                        conditions_id_list: list,
                                        delivery_destination: str,
                                        currency: str,
-                                       match_listing_locations_to_selected_market:bool
+                                       match_listing_locations_to_selected_market: bool
                                        ) -> dict:
     """
     Formatting parameters and data for requests.

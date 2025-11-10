@@ -28,8 +28,7 @@ def create_a_response(client, url: str, search_parameter: str = None, delivery_d
     if currency:
         data_dict["currency"] = currency
 
-    response = client.post(
-        f"http://{url}", data=data_dict, follow_redirects=True)
+    response = client.post(url, data=data_dict, follow_redirects=True)
 
     return response
 

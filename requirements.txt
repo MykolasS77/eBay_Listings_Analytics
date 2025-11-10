@@ -1,0 +1,13 @@
+flask 
+matplotlib 
+requests 
+statistics 
+asyncio 
+aiohttp 
+flask_wtf 
+wtforms 
+flask_sqlalchemy 
+sqlalchemy 
+pytest
+pytest-cov
+dotenv
